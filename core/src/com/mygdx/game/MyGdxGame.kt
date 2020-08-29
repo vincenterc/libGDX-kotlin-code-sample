@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.InputListener
 import com.badlogic.gdx.scenes.scene2d.Stage
+import com.badlogic.gdx.scenes.scene2d.ui.Button
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton
 import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
@@ -35,6 +36,21 @@ class MyGdxGame : ApplicationAdapter() {
         title.setPosition(0f, (Gdx.graphics.height - rowHeight * 2).toFloat())
         title.setAlignment(Align.center)
         stage.addActor(title)
+
+        var button1 = Button(mySkin, "small")
+        button1.setSize((colWidth * 4).toFloat(), rowHeight.toFloat())
+        button1.setPosition(colWidth.toFloat(), (Gdx.graphics.height - rowHeight * 3).toFloat())
+        button1.addListener(object : InputListener() {
+            override fun touchUp(event: InputEvent?, x: Float, y: Float, pointer: Int, button: Int) {
+                outputLabel.setText("Press a Button")
+            }
+
+            override fun touchDown(event: InputEvent?, x: Float, y: Float, pointer: Int, button: Int): Boolean {
+                outputLabel.setText("Pressed Button")
+                return true
+            }
+        })
+        stage.addActor(button1)
 
         var button2 = TextButton("Text Button", mySkin, "small")
         button2.setSize((colWidth * 4).toFloat(), rowHeight.toFloat())
