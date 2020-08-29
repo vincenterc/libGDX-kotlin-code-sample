@@ -89,6 +89,11 @@ com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton$ImageTextButtonStyle: {
 		up: button
 		down: button-down
 	}
+	small: {
+		font: font
+		up: button
+		down: button-down
+	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 	default: {
@@ -99,6 +104,11 @@ com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 	}
 	black: {
 		font: font
+		fontColor: black
+	}
+	
+	big-black: {
+		font: font-big
 		fontColor: black
 	}
 }
