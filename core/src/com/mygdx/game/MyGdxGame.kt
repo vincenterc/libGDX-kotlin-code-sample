@@ -11,6 +11,7 @@ class MyGdxGame : ApplicationAdapter() {
 
     override fun create() {
         stage = Stage(ScreenViewport())
+        Gdx.input.inputProcessor = stage
     }
 
     override fun render() {
