@@ -30,6 +30,12 @@ class MyGdxGame : ApplicationAdapter() {
 
         var mySkin = Skin(Gdx.files.internal("skin/glassy-ui.json"))
 
+        var title = Label("Buttons with Skins", mySkin, "big-black")
+        title.setSize(Gdx.graphics.width.toFloat(), (rowHeight * 2).toFloat())
+        title.setPosition(0f, (Gdx.graphics.height - rowHeight * 2).toFloat())
+        title.setAlignment(Align.center)
+        stage.addActor(title)
+
         var button2 = TextButton("Text Button", mySkin, "small")
         button2.setSize((colWidth * 4).toFloat(), rowHeight.toFloat())
         button2.setPosition((colWidth * 7).toFloat(), (Gdx.graphics.height - rowHeight * 3).toFloat())
