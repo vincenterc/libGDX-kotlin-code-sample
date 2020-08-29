@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.InputListener
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Button
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton
+import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton
 import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton
@@ -83,6 +84,23 @@ class MyGdxGame : ApplicationAdapter() {
             }
         })
         stage.addActor(button3)
+
+        var button4 = ImageTextButton("ImageText Btn", mySkin, "small")
+        button4.setSize((colWidth * 4).toFloat(), (rowHeight * 2).toFloat())
+        button4.style.imageUp = TextureRegionDrawable(TextureRegion(Texture(Gdx.files.internal("switch_off.png"))))
+        button4.style.imageDown = TextureRegionDrawable(TextureRegion(Texture(Gdx.files.internal("switch_on.png"))))
+        button4.setPosition((colWidth * 7).toFloat(), (Gdx.graphics.height - rowHeight * 6).toFloat())
+        button4.addListener(object : InputListener() {
+            override fun touchUp(event: InputEvent?, x: Float, y: Float, pointer: Int, button: Int) {
+                outputLabel.setText("Press a Button")
+            }
+
+            override fun touchDown(event: InputEvent?, x: Float, y: Float, pointer: Int, button: Int): Boolean {
+                outputLabel.setText("Pressed Image Text Button")
+                return true
+            }
+        })
+        stage.addActor(button4)
 
         outputLabel = Label("Press a  Button", mySkin, "black")
         outputLabel.setSize(Gdx.graphics.width.toFloat(), rowHeight.toFloat())
