@@ -4,6 +4,7 @@ import com.badlogic.gdx.ApplicationAdapter
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.scenes.scene2d.Stage
+import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.utils.viewport.ScreenViewport
 
 class MyGdxGame : ApplicationAdapter() {
@@ -12,6 +13,8 @@ class MyGdxGame : ApplicationAdapter() {
     override fun create() {
         stage = Stage(ScreenViewport())
         Gdx.input.inputProcessor = stage
+
+        var mySkin = Skin(Gdx.files.internal("skin/glassy-ui.json"))
     }
 
     override fun render() {
