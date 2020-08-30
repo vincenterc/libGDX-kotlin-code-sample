@@ -4,7 +4,12 @@ import com.badlogic.gdx.ApplicationAdapter
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.Texture
+import com.badlogic.gdx.math.Interpolation
 import com.badlogic.gdx.scenes.scene2d.Stage
+import com.badlogic.gdx.scenes.scene2d.actions.Actions
+import com.badlogic.gdx.scenes.scene2d.actions.ParallelAction
+import com.badlogic.gdx.scenes.scene2d.actions.RepeatAction
+import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.utils.viewport.ScreenViewport
 
@@ -24,6 +29,12 @@ class MyGdxGame : ApplicationAdapter() {
         image1.setPosition(xLeft, yTop)
         image1.setOrigin(image1.width / 2f, image1.height / 2f)
         stage.addActor(image1)
+
+        var topLeftRightParallelAction = ParallelAction()
+        topLeftRightParallelAction.addAction(Actions.moveTo(xRight, yTop, 1f, Interpolation.exp5Out))
+        topLeftRightParallelAction.addAction(Actions.scaleTo(2f, 2f, 1f, Interpolation.exp5Out))
+
+        image1.addAction(topLeftRightParallelAction)
     }
 
     override fun render() {
