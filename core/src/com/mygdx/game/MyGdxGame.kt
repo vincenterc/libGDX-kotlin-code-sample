@@ -40,7 +40,11 @@ class MyGdxGame : ApplicationAdapter() {
         bottomLeftRightParallelAction.addAction(Actions.moveTo(xLeft, yBottom, 1f, Interpolation.sineOut))
         bottomLeftRightParallelAction.addAction(Actions.scaleTo(1f, 1f, 1f))
 
-        image1.addAction(bottomLeftRightParallelAction)
+        var leftBottomTopParallelAction = ParallelAction()
+        leftBottomTopParallelAction.addAction(Actions.moveTo(xLeft, yTop, 1f, Interpolation.swingOut))
+        leftBottomTopParallelAction.addAction(Actions.rotateBy(90f, 1f))
+
+        image1.addAction(leftBottomTopParallelAction)
     }
 
     override fun render() {
