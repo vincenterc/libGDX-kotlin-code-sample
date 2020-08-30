@@ -20,6 +20,7 @@ class MyGdxGame : ApplicationAdapter() {
 
     override fun create() {
         stage = Stage(ScreenViewport())
+        
         var helpGuides = 12;
         var rowHeight = Gdx.graphics.width / 12;
         var colWidth = Gdx.graphics.width / 12;
