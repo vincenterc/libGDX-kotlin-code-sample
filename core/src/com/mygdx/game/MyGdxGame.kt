@@ -44,7 +44,17 @@ class MyGdxGame : ApplicationAdapter() {
         leftBottomTopParallelAction.addAction(Actions.moveTo(xLeft, yTop, 1f, Interpolation.swingOut))
         leftBottomTopParallelAction.addAction(Actions.rotateBy(90f, 1f))
 
-        image1.addAction(leftBottomTopParallelAction)
+        var overallSequence = SequenceAction()
+        overallSequence.addAction(topLeftRightParallelAction)
+        overallSequence.addAction(moveBottomRightAction)
+        overallSequence.addAction(bottomLeftRightParallelAction)
+        overallSequence.addAction(leftBottomTopParallelAction)
+
+        var infiniteLoop = RepeatAction()
+        infiniteLoop.count = RepeatAction.FOREVER
+        infiniteLoop.action = overallSequence
+
+        image1.addAction(infiniteLoop)
     }
 
     override fun render() {
