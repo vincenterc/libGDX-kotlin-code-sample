@@ -6,10 +6,7 @@ import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.math.Interpolation
 import com.badlogic.gdx.scenes.scene2d.Stage
-import com.badlogic.gdx.scenes.scene2d.actions.Actions
-import com.badlogic.gdx.scenes.scene2d.actions.ParallelAction
-import com.badlogic.gdx.scenes.scene2d.actions.RepeatAction
-import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction
+import com.badlogic.gdx.scenes.scene2d.actions.*
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.utils.viewport.ScreenViewport
 
@@ -34,7 +31,12 @@ class MyGdxGame : ApplicationAdapter() {
         topLeftRightParallelAction.addAction(Actions.moveTo(xRight, yTop, 1f, Interpolation.exp5Out))
         topLeftRightParallelAction.addAction(Actions.scaleTo(2f, 2f, 1f, Interpolation.exp5Out))
 
-        image1.addAction(topLeftRightParallelAction)
+        var moveBottomRightAction = MoveToAction()
+        moveBottomRightAction.setPosition(xRight, yBottom)
+        moveBottomRightAction.duration = 1f
+        moveBottomRightAction.interpolation = Interpolation.smooth
+
+        image1.addAction(moveBottomRightAction)
     }
 
     override fun render() {
