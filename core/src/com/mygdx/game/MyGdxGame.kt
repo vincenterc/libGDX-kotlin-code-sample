@@ -36,7 +36,11 @@ class MyGdxGame : ApplicationAdapter() {
         moveBottomRightAction.duration = 1f
         moveBottomRightAction.interpolation = Interpolation.smooth
 
-        image1.addAction(moveBottomRightAction)
+        var bottomLeftRightParallelAction = ParallelAction()
+        bottomLeftRightParallelAction.addAction(Actions.moveTo(xLeft, yBottom, 1f, Interpolation.sineOut))
+        bottomLeftRightParallelAction.addAction(Actions.scaleTo(1f, 1f, 1f))
+
+        image1.addAction(bottomLeftRightParallelAction)
     }
 
     override fun render() {
