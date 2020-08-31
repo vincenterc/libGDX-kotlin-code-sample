@@ -1,23 +1,31 @@
 package com.mygdx.game
 
-import com.badlogic.gdx.ApplicationAdapter
+import com.badlogic.gdx.Game
 import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.graphics.GL20
-import com.badlogic.gdx.scenes.scene2d.Stage
-import com.badlogic.gdx.utils.viewport.ScreenViewport
+import com.badlogic.gdx.graphics.Texture
+import com.badlogic.gdx.graphics.g2d.TextureAtlas
+import com.badlogic.gdx.graphics.g2d.TextureRegion
+import com.badlogic.gdx.scenes.scene2d.ui.Skin
+import com.mygdx.game.screens.TitleScreen
 
-class MyGdxGame : ApplicationAdapter() {
-    private lateinit var stage: Stage;
+class MyGdxGame : Game() {
+    companion object {
+        lateinit var skin: Skin
+        lateinit var textureAtlas: TextureAtlas
+    }
 
     override fun create() {
-        stage = Stage(ScreenViewport())
+        skin = Skin(Gdx.files.internal("skin/glassy-ui.json"))
+        textureAtlas = TextureAtlas()
+        textureAtlas.addRegion("note", TextureRegion(Texture("note.png")))
+        this.setScreen(TitleScreen(this))
     }
 
     override fun render() {
-        Gdx.gl.glClearColor(1f, 1f, 1f, 1f)
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
+        super.render()
+    }
 
-        stage.act()
-        stage.draw()
+    override fun dispose() {
+        skin.dispose()
     }
 }
