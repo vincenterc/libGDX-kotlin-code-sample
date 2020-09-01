@@ -30,7 +30,7 @@ class TitleScreen(game: MyGdxGame) : Screen {
         )
         playButton.addListener(object : InputListener() {
             override fun touchUp(event: InputEvent?, x: Float, y: Float, pointer: Int, button: Int) {
-                //game.screen = GameScreen(game)
+                game.screen = GameScreen(game)
             }
 
             override fun touchDown(event: InputEvent?, x: Float, y: Float, pointer: Int, button: Int): Boolean {
