@@ -1,8 +1,11 @@
 package com.mygdx.game
 
+import box2dLight.PointLight
+import box2dLight.RayHandler
 import com.badlogic.gdx.Application
 import com.badlogic.gdx.ApplicationAdapter
 import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.math.Vector2
@@ -17,19 +20,16 @@ class MyGdxGame : ApplicationAdapter() {
     private lateinit var world: World
     private lateinit var stage: Stage
     private lateinit var debugRenderer: Box2DDebugRenderer
-    private var count = 0
 
-    companion object {
-        var ballNbr = 0
-    }
+    private lateinit var rayHandler: RayHandler
 
     override fun create() {
         Gdx.app.logLevel = Application.LOG_DEBUG
 
-        world = World(Vector2(0f, -10f), true)
+        world = World(Vector2(0f, -3f), true)
         world.setContactListener(B2dContactListener())
-        batch = SpriteBatch()
 
+        batch = SpriteBatch()
 
         var ratio: Float = Gdx.graphics.width.toFloat() / Gdx.graphics.height.toFloat()
 
@@ -43,36 +43,45 @@ class MyGdxGame : ApplicationAdapter() {
 
         debugRenderer = Box2DDebugRenderer()
 
-        var gearActor = GearActor(world, 0f, 0f, 6f, 6f)
+        var gearActor = GearActor(world, 0f, 0f, 3f, 3f)
         stage.addActor(gearActor)
 
         WindowsFrame(world, stage.camera.viewportWidth, stage.camera.viewportHeight)
 
-        generateBall()
+        rayHandler = RayHandler(world)
+        rayHandler.setAmbientLight(0.1f, 0.1f, 0.1f, 1f)
+        rayHandler.setBlurNum(3)
+
+
+        var pl = PointLight(rayHandler, 128, Color(0.2f, 1f, 1f, 1f), 10f, -5f, 2f)
+        var pl2 = PointLight(rayHandler, 128, Color(1f, 0f, 1f, 1f), 10f, 5f, 2f)
+
+        rayHandler.setShadows(true)
+        pl.isStaticLight = false
+        pl.isSoft = true
+
+        BallGenerator.setup(stage, world)
+        stage.addActor(FireEmitter(world))
     }
 
     override fun render() {
-        Gdx.gl.glClearColor(1f, 1f, 1f, 1f)
+        Gdx.gl.glClearColor(0f, 0f, 0f, 1f)
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
 
         stage.act()
         stage.draw()
 
         world.step(Gdx.graphics.deltaTime, 6, 2)
-        if (ballNbr < 100) {
-            generateBall()
-        }
+
+        BallGenerator.emit()
+
+        rayHandler.setCombinedMatrix(stage.camera.combined, 0f, 0f, 1f, 1f)
+        rayHandler.updateAndRender()
     }
 
     override fun dispose() {
         batch.dispose()
         stage.dispose()
-    }
-
-    private fun generateBall() {
-        var ball = Ball(world, (Random.nextInt(60) - 30) / 10f, 9f)
-        stage.addActor(ball)
-        ballNbr++
-        Gdx.app.debug("generateBalls", "Balls: $ballNbr")
+        rayHandler.dispose()
     }
 }

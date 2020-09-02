@@ -13,15 +13,13 @@ class B2dContactListener : ContactListener {
         if (classA.equals("com.mygdx.game.WindowsFrame", ignoreCase = true) &&
             classB.equals("com.mygdx.game.Ball", ignoreCase = true)
         ) {
-            var a: Ball = contact.fixtureB.body.userData as Ball
-            a.eliminate()
-            MyGdxGame.ballNbr--
+            var ball: Ball = contact.fixtureB.body.userData as Ball
+            BallGenerator.explode(ball)
         } else if (classB.equals("com.mygdx.game.WindowFrame", ignoreCase = true) &&
                    classA.equals("com.mygdx.game.Ball", ignoreCase = true)
         ) {
-            var a: Ball = contact.fixtureA.body.userData as Ball
-            a.eliminate()
-            MyGdxGame.ballNbr--
+            var ball: Ball = contact.fixtureA.body.userData as Ball
+            BallGenerator.explode(ball)
         }
     }
 
